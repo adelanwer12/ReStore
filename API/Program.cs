@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 // add database
 var _config = builder.Configuration;
 builder.Services.AddDbContext<StoreContext>(opt =>{
-    opt.UseSqlServer(_config.GetConnectionString("Default"));
+    opt.UseSqlServer(_config.GetConnectionString("Linux"));
 });
 
 
@@ -32,6 +32,8 @@ catch (Exception ex)
     
     logger.LogError(ex, "Proplem Migrating Data");
 }
+// add cors
+builder.Services.AddCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -41,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(opt =>{
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+});
 
 app.UseAuthorization();
 

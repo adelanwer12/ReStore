@@ -14,7 +14,7 @@ namespace API.Data
         {
         }
 
-        public DbSet<Product>? Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
